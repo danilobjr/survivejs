@@ -4,7 +4,8 @@
   "description": "Kanban app made with React",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "start": "webpack-dev-server --content-base build"
   },
   "keywords": [
     "kanban",
@@ -13,6 +14,7 @@
   "author": "Danilo Barros <danilobjr@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   }
 }
