@@ -14,6 +14,8 @@
   "author": "Danilo Barros <danilobjr@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.7.4",
+    "babel-loader": "^6.2.4",
     "css-loader": "^0.23.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.14",

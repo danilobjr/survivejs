@@ -16,11 +16,19 @@ const common = {
         path: PATHS.build,
         filename: 'bundle.js'
     },
+    resolve: {
+        extensions: ['', '.js', '.jsx', '.css']
+    },
     module: {
         loaders: [
             {
                 test: /\.css$/,
                 loaders: ['style', 'css'],
+                include: PATHS.app
+            },
+            {
+                test: /\.jsx?$/,
+                loaders: ['babel?cacheDirectory'],
                 include: PATHS.app
             }
         ]
