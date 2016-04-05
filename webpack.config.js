@@ -27,10 +27,11 @@ const common = {
     }
 };
 
-const defaultConfiguration = TARGET === 'start' || !TARGET;
+var configuration = {};
 
-if (defaultConfiguration) {
-    module.exports = merge(common, {
+if (TARGET === 'start' || !TARGET) {
+    configuration = merge(common, {
+        devtool: 'eval-source-map',
         devServer: {
             contentBase: PATHS.build,
             historyApiFallback: true,
@@ -48,5 +49,7 @@ if (defaultConfiguration) {
 }
 
 if (TARGET === 'build') {
-    module.exports = merge(common, {});
+    configuration = merge(common, {});
 }
+
+module.exports = configuration;
