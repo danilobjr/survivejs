@@ -1,7 +1,7 @@
-require('./styles');
-var component = require('./component');
+import './styles';
 
-var app = document.createElement('div');
-document.body.appendChild(app);
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
 
-app.appendChild(component());
+ReactDOM.render(<App />, document.getElementById('app'));
