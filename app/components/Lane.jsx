@@ -40,7 +40,7 @@ class Lane extends React.Component {
             <h3 className="title" onClick={this.edit.bind(this)}>
                 {this.props.name}
                 <button className="add-note" onClick={this.addNote.bind(this)}>+</button>
-                <span className="remove-lane">&times;</span>
+                <span className="remove-lane" onClick={this.removeLane.bind(this)}>&times;</span>
             </h3>
         );
     }
@@ -75,6 +75,12 @@ class Lane extends React.Component {
             this.setState({ editing: false });
             this.props.onSaveLane(this.props.id, e.target.value);
         }
+    }
+    
+    removeLane(e) {
+        e.stopPropagation();
+        var laneId = this.props.id;
+        this.props.onRemoveLane(laneId);
     }
     
     addNote(e) {

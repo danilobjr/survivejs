@@ -63,7 +63,9 @@ class App extends React.Component {
     }
     
     removeLane(laneId) {
-        alert(laneId);
+        this.setState({
+            lanes: [...this.state.lanes.filter(lane => lane.id !== laneId)]
+        });
     }
     
     addNote(laneId) {
