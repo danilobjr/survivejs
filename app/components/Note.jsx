@@ -1,4 +1,6 @@
 import React from 'react';
+import keyCodes from './../common/keyCodes';
+import eventTypes from './../common/eventTypes';
 
 const styles = {
     span: {
@@ -45,16 +47,18 @@ class Note extends React.Component {
         );
     }
     
-    enterEditionMode() {        
+    enterEditionMode() {
         this.setState({ isInEditionMode: true });
-        this.refs.taskInput.focus();
+        //this.refs.taskInput.focus();
     }
     
-    saveTask(e) {
-        let enterKey = 13;
-        
-        if (e.keyCode === enterKey || e.type === 'blur') {
-            this.setState({ isInEditionMode: false });
+    saveTask(e) {        
+        if (e.keyCode === keyCodes.enterKey || e.type === eventTypes.blur) {
+            this.setState({ isInEditionMode: false });            
+            this.props.onSaveNote({
+                id: this.props.id,
+                task: this.refs.taskInput.value
+            });
         }
     }
 }

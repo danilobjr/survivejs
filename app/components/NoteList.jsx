@@ -6,7 +6,12 @@ class NoteList extends React.Component {
         return (
             <ul>
                 {this.props.notes.map(note =>
-                    <Note key={note.id} task={note.task} />
+                    <Note 
+                        key={note.id}
+                        id={note.id} 
+                        task={note.task} 
+                        onSaveNote={this.props.onSaveNote} 
+                    />
                 )}
             </ul>
         );
