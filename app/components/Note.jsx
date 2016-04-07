@@ -29,12 +29,28 @@ class Note extends React.Component {
     }
     
     render() {
+        if (this.state.editing) {
+            return this.renderEdit();
+        }
+            
+        return this.renderNote();
+    }
+
+    renderNote() {
         var spanStyle = (this.state.editing) ? styles.editing.span : styles.span;
-        var inputStyle = (this.state.editing) ? styles.editing.input : styles.input;
         
         return (
             <li onClick={this.enterEditionMode.bind(this)}>
                 <span style={spanStyle}>{this.props.task}</span>
+            </li>
+        );
+    }
+    
+    renderEdit() {
+        var inputStyle = (this.state.editing) ? styles.editing.input : styles.input;
+        
+        return (
+            <li>
                 <input
                     style={inputStyle} 
                     ref="taskInput"
