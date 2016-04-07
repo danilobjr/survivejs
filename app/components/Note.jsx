@@ -56,6 +56,7 @@ class Note extends React.Component {
                     ref="taskInput"
                     type="text" 
                     defaultValue={this.props.task} 
+                    autoFocus={true}
                     onKeyDown={this.saveTask.bind(this)} 
                     onBlur={this.saveTask.bind(this)}
                 />
@@ -65,7 +66,6 @@ class Note extends React.Component {
     
     enterEditionMode() {
         this.setState({ editing: true });
-        //this.refs.taskInput.focus();
     }
     
     saveTask(e) {        
