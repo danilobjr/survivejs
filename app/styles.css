@@ -2,8 +2,9 @@ body {
     background: cornsilk;
 }
 
-.lane-container {    
-    max-width: 250px;
+.lane-container {
+    display: inline-block;    
+    width: 250px;
     margin: 25px;
     background-color: #e5e5e5;
     border: 1px solid;

@@ -31,7 +31,9 @@ class App extends React.Component {
         return (
             <div>
                 <button onClick={this.addLane.bind(this)}>+</button>
-                {this.renderLanes()}
+                <div>
+                    {this.renderLanes()}
+                </div>
             </div>
         );
     }
@@ -44,6 +46,7 @@ class App extends React.Component {
                     id={lane.id}
                     name={lane.name} 
                     notes={lane.notes}
+                    onSaveLane={this.saveLane.bind(this)}
                     onSaveNote={this.saveNote.bind(this)} 
                     onRemoveNote={this.removeNote.bind(this)}
                 />
@@ -65,6 +68,26 @@ class App extends React.Component {
     //         }]
     //     });
     // }
+    
+    saveLane(laneId, newName) {
+        const newNameIsEmpty = !newName;
+        
+        if (newNameIsEmpty) {
+            return;
+        }
+        
+        var lane = this.state.lanes.find(lane => lane.id === laneId);
+        var laneIndex = this.state.lanes.indexOf(lane);
+        lane.name = newName;
+        
+        this.setState({
+            lanes: [
+                ...this.state.lanes.slice(0, laneIndex), 
+                lane, 
+                ...this.state.lanes.slice(laneIndex + 1)
+            ]
+        });
+    }
     
     saveNote(laneId, note) {
         var taskIsAnEmptyString = !note.task.trim(); 
