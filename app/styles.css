@@ -1,3 +1,16 @@
 body {
     background: cornsilk;
 }
+
+.note {
+    position: relative;
+    cursor: default;
+}
+
+.note .remove-button {
+    float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}

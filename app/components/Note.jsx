@@ -3,17 +3,25 @@ import keyCodes from './../common/keyCodes';
 import eventTypes from './../common/eventTypes';
 
 const styles = {
-    span: {
+    text: {
         display: 'block'
     },
     input: {
         display: 'none'
     },
+    remove: {
+        display: 'none'
+    },
     editing: {
-        span: {
+        text: {
             display: 'none'
         },
         input: {
+            display: 'block'
+        }
+    },
+    hovering: {
+        remove: {
             display: 'block'
         }
     }
@@ -24,7 +32,8 @@ class Note extends React.Component {
         super(props);
         
         this.state = {
-            editing: false
+            editing: false,
+            showRemoveButton: false
         };
     }
     
@@ -37,11 +46,18 @@ class Note extends React.Component {
     }
 
     renderNote() {
-        var spanStyle = (this.state.editing) ? styles.editing.span : styles.span;
+        var textStyle = (this.state.editing) ? styles.editing.text : styles.text;
+        var removeStyle = (this.state.showRemoveButton) ? styles.hovering.remove : styles.remove;
         
         return (
-            <li onClick={this.enterEditionMode.bind(this)}>
-                <span style={spanStyle}>{this.props.task}</span>
+            <li 
+                className="note"
+                onClick={this.enterEditionMode.bind(this)}
+                onMouseEnter={this.toggleRemoveButton.bind(this)}
+                onMouseLeave={this.toggleRemoveButton.bind(this)}
+            >
+                <span style={textStyle}>{this.props.task}</span>
+                <span className="remove-button" style={removeStyle}>&times;</span>
             </li>
         );
     }
@@ -66,6 +82,10 @@ class Note extends React.Component {
     
     enterEditionMode() {
         this.setState({ editing: true });
+    }
+    
+    toggleRemoveButton() {
+        this.setState({ showRemoveButton: !this.state.showRemoveButton });
     }
     
     saveTask(e) {        
