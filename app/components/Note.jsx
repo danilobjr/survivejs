@@ -1,3 +1,13 @@
 import React from 'react';
 
-export default () => <div>Learn Webpack</div>;
+class Note extends React.Component {
+    render() {
+        return (
+            <li>
+                {this.props.task}
+            </li>
+        );
+    }
+}
+
+export default Note;
