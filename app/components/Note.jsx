@@ -59,7 +59,7 @@ class Note extends React.Component {
         var inputStyle = (this.state.editing) ? styles.editing.input : styles.input;
         
         return (
-            <li>
+            <li className="note">
                 <input
                     style={inputStyle} 
                     ref="taskInput"
