@@ -12,10 +12,22 @@ body {
 }
 
 .lane-container .title {
+    position: relative;
     margin: 0;
     padding: 18px 12px;
     color: white;
     background-color: rgba(0,0,0,.8);
+}
+
+.lane-container .title .remove-lane {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+
+.lane-container .add-note {
+    float: left;
+    margin-right: 10px;
 }
 
 .notes {
@@ -43,14 +55,9 @@ body {
 }
 
 .note .remove-button {
-    visibility: hidden;
     float: right;
     position: absolute;
     top: 2px;
     right: 6px;
     cursor: pointer;
-}
-
-.note:hover .remove-button {
-    visibility: visible;
 }

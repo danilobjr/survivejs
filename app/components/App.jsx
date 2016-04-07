@@ -30,7 +30,7 @@ class App extends React.Component {
     render() {              
         return (
             <div>
-                <button onClick={this.addLane.bind(this)}>+</button>
+                <button onClick={this.addLane.bind(this)}>Add Lane</button>
                 <div>
                     {this.renderLanes()}
                 </div>
@@ -47,6 +47,7 @@ class App extends React.Component {
                     name={lane.name} 
                     notes={lane.notes}
                     onSaveLane={this.saveLane.bind(this)}
+                    onRemoveLane={this.removeLane.bind(this)}
                     onAddNote={this.addNote.bind(this)}
                     onSaveNote={this.saveNote.bind(this)} 
                     onRemoveNote={this.removeNote.bind(this)}
@@ -59,6 +60,10 @@ class App extends React.Component {
         this.setState({
             lanes: [...this.state.lanes, { id: uuid.v4(), name: 'New Lane' }]
         });
+    }
+    
+    removeLane(laneId) {
+        alert(laneId);
     }
     
     addNote(laneId) {

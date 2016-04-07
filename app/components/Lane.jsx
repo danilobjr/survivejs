@@ -40,6 +40,7 @@ class Lane extends React.Component {
             <h3 className="title" onClick={this.edit.bind(this)}>
                 {this.props.name}
                 <button className="add-note" onClick={this.addNote.bind(this)}>+</button>
+                <span className="remove-lane">&times;</span>
             </h3>
         );
     }
