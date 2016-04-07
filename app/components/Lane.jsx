@@ -36,7 +36,12 @@ class Lane extends React.Component {
             );
         }
         
-        return <h3 className="title" onClick={this.edit.bind(this)}>{this.props.name}</h3>;
+        return (
+            <h3 className="title" onClick={this.edit.bind(this)}>
+                {this.props.name}
+                <button className="add-note" onClick={this.addNote.bind(this)}>+</button>
+            </h3>
+        );
     }
     
     renderNotes() {
@@ -69,6 +74,12 @@ class Lane extends React.Component {
             this.setState({ editing: false });
             this.props.onSaveLane(this.props.id, e.target.value);
         }
+    }
+    
+    addNote(e) {
+        e.stopPropagation();
+        var laneId = this.props.id;
+        this.props.onAddNote(laneId);
     }
 }
 

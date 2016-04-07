@@ -47,6 +47,7 @@ class App extends React.Component {
                     name={lane.name} 
                     notes={lane.notes}
                     onSaveLane={this.saveLane.bind(this)}
+                    onAddNote={this.addNote.bind(this)}
                     onSaveNote={this.saveNote.bind(this)} 
                     onRemoveNote={this.removeNote.bind(this)}
                 />
@@ -56,18 +57,29 @@ class App extends React.Component {
     
     addLane() {
         this.setState({
-            lanes: [...this.state.lanes, { name: 'New Lane' }]
+            lanes: [...this.state.lanes, { id: uuid.v4(), name: 'New Lane' }]
         });
     }
     
-    // addNote() {
-    //     this.setState({
-    //         notes: [...this.state.notes, {
-    //             id: uuid.v4(),
-    //             task: 'New Task'
-    //         }]
-    //     });
-    // }
+    addNote(laneId) {
+        var lane = this.state.lanes.find(lane => lane.id === laneId);
+        var laneIndex = this.state.lanes.indexOf(lane);
+        lane.notes = [
+            ...lane.notes || [], 
+            {
+                id: uuid.v4(),
+                task: 'New Task'
+            }
+        ];
+        
+        this.setState({
+            lanes: [
+                ...this.state.lanes.slice(0, laneIndex), 
+                lane, 
+                ...this.state.lanes.slice(laneIndex + 1)
+            ]
+        });
+    }
     
     saveLane(laneId, newName) {
         const newNameIsEmpty = !newName;
