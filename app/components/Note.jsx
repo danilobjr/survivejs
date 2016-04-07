@@ -9,7 +9,7 @@ const styles = {
     input: {
         display: 'none'
     },
-    isInEditionMode: {
+    editing: {
         span: {
             display: 'none'
         },
@@ -24,13 +24,13 @@ class Note extends React.Component {
         super(props);
         
         this.state = {
-            isInEditionMode: false
+            editing: false
         };
     }
     
     render() {
-        var spanStyle = (this.state.isInEditionMode) ? styles.isInEditionMode.span : styles.span;
-        var inputStyle = (this.state.isInEditionMode) ? styles.isInEditionMode.input : styles.input;
+        var spanStyle = (this.state.editing) ? styles.editing.span : styles.span;
+        var inputStyle = (this.state.editing) ? styles.editing.input : styles.input;
         
         return (
             <li onClick={this.enterEditionMode.bind(this)}>
@@ -48,13 +48,13 @@ class Note extends React.Component {
     }
     
     enterEditionMode() {
-        this.setState({ isInEditionMode: true });
+        this.setState({ editing: true });
         //this.refs.taskInput.focus();
     }
     
     saveTask(e) {        
         if (e.keyCode === keyCodes.enterKey || e.type === eventTypes.blur) {
-            this.setState({ isInEditionMode: false });            
+            this.setState({ editing: false });            
             this.props.onSaveNote({
                 id: this.props.id,
                 task: this.refs.taskInput.value
