@@ -28,6 +28,7 @@ class App extends React.Component {
                 <NoteList 
                     notes={this.state.notes}
                     onSaveNote={this.saveNote.bind(this)} 
+                    onRemoveNote={this.removeNote.bind(this)}
                 />
             </div>
         );
@@ -58,6 +59,16 @@ class App extends React.Component {
         });
         
         this.setState(notes);
+    }
+    
+    removeNote(noteId) {
+        if (!noteId) {
+            return;
+        }
+        
+        const notes = this.state.notes.filter(note => note.id !== noteId);
+        
+        this.setState({notes});
     }
 }
 

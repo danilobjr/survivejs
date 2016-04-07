@@ -53,11 +53,17 @@ class Note extends React.Component {
             <li 
                 className="note"
                 onClick={this.enterEditionMode.bind(this)}
-                onMouseEnter={this.toggleRemoveButton.bind(this)}
-                onMouseLeave={this.toggleRemoveButton.bind(this)}
+                onMouseEnter={this.showRemoveButton.bind(this)}
+                onMouseLeave={this.hideRemoveButton.bind(this)}
             >
                 <span style={textStyle}>{this.props.task}</span>
-                <span className="remove-button" style={removeStyle}>&times;</span>
+                <span 
+                    className="remove-button" 
+                    style={removeStyle}
+                    onClick={this.removeNote.bind(this)}
+                >
+                    &times;
+                </span>
             </li>
         );
     }
@@ -84,11 +90,15 @@ class Note extends React.Component {
         this.setState({ editing: true });
     }
     
-    toggleRemoveButton() {
-        this.setState({ showRemoveButton: !this.state.showRemoveButton });
+    showRemoveButton() {
+        this.setState({ showRemoveButton: true });
     }
     
-    saveTask(e) {        
+    hideRemoveButton() {
+        this.setState({ showRemoveButton: false });
+    }
+    
+    saveTask(e) {
         if (e.keyCode === keyCodes.enterKey || e.type === eventTypes.blur) {
             this.setState({ editing: false });            
             this.props.onSaveNote({
@@ -96,6 +106,11 @@ class Note extends React.Component {
                 task: this.refs.taskInput.value
             });
         }
+    }
+    
+    removeNote(e) {
+        e.stopPropagation();
+        this.props.onRemoveNote(this.props.id);
     }
 }
 

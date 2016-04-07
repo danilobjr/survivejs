@@ -10,7 +10,8 @@ class NoteList extends React.Component {
                         key={note.id}
                         id={note.id} 
                         task={note.task} 
-                        onSaveNote={this.props.onSaveNote} 
+                        onSaveNote={this.props.onSaveNote}
+                        onRemoveNote={this.props.onRemoveNote} 
                     />
                 )}
             </ul>
