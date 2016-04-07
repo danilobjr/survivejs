@@ -9,19 +9,11 @@ const styles = {
     input: {
         display: 'none'
     },
-    remove: {
-        display: 'none'
-    },
     editing: {
         text: {
             display: 'none'
         },
         input: {
-            display: 'block'
-        }
-    },
-    hovering: {
-        remove: {
             display: 'block'
         }
     }
@@ -47,25 +39,20 @@ class Note extends React.Component {
 
     renderNote() {
         var textStyle = (this.state.editing) ? styles.editing.text : styles.text;
-        var removeStyle = (this.state.showRemoveButton) ? styles.hovering.remove : styles.remove;
         
         return (
             <li 
                 className="note"
                 onClick={this.enterEditionMode.bind(this)}
-                onMouseEnter={this.showRemoveButton.bind(this)}
-                onMouseLeave={this.hideRemoveButton.bind(this)}
             >
                 <span style={textStyle}>{this.props.task}</span>
-                <span 
-                    className="remove-button" 
-                    style={removeStyle}
-                    onClick={this.removeNote.bind(this)}
-                >
-                    &times;
-                </span>
+                {this.renderRemove()}
             </li>
         );
+    }
+    
+    renderRemove() {
+        return <span className="remove-button" onClick={this.removeNote.bind(this)}>&times;</span>;
     }
     
     renderEdit() {
@@ -90,18 +77,10 @@ class Note extends React.Component {
         this.setState({ editing: true });
     }
     
-    showRemoveButton() {
-        this.setState({ showRemoveButton: true });
-    }
-    
-    hideRemoveButton() {
-        this.setState({ showRemoveButton: false });
-    }
-    
     saveTask(e) {
         if (e.keyCode === keyCodes.enterKey || e.type === eventTypes.blur) {
             this.setState({ editing: false });            
-            this.props.onSaveNote({
+            this.props.onSaveNote(this.props.laneId, {
                 id: this.props.id,
                 task: this.refs.taskInput.value
             });

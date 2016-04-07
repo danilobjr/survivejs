@@ -2,15 +2,54 @@ body {
     background: cornsilk;
 }
 
+.lane-container {    
+    max-width: 250px;
+    margin: 25px;
+    background-color: #e5e5e5;
+    border: 1px solid;
+    border-radius: 3px;
+}
+
+.lane-container .title {
+    margin: 0;
+    padding: 18px 12px;
+    color: white;
+    background-color: rgba(0,0,0,.8);
+}
+
+.notes {
+    margin: 0 12px 10px;
+    padding-left: 0;
+    list-style: none;
+}
+
 .note {
     position: relative;
     cursor: default;
+    margin: 10px 0 0 0;
+    padding: 10px 12px;
+    background-color: white;
+    border-radius: 1px;
+    box-shadow: rgba(0,0,0,.3) 0 0 3px;
+    
+    -webkit-transition: box-shadow 300ms;
+    -moz-transition: box-shadow 300ms;
+    transition: box-shadow 300ms;
+}
+
+.note:hover {
+    box-shadow: rgba(0,0,0,.5) 0 0 4px;
 }
 
 .note .remove-button {
+    visibility: hidden;
     float: right;
     position: absolute;
-    right: 0;
-    top: 0;
+    top: 2px;
+    right: 6px;
     cursor: pointer;
+}
+
+.note:hover .remove-button {
+    visibility: visible;
 }

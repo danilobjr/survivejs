@@ -1,5 +1,5 @@
 import React from 'react';
-import NoteList from './NoteList';
+import Lane from './Lane';
 import uuid from 'node-uuid';
 import _ from 'lodash';
 
@@ -8,49 +8,74 @@ class App extends React.Component {
         super(props);
         
         this.state = {
-            notes: [
+            lanes: [
                 {
                     id: uuid.v4(),
-                    task: 'Learn webpack'
-                },
-                {
-                    id: uuid.v4(),
-                    task: 'Learn react'
-                }
+                    name: 'todo',                
+                    notes: [
+                        {
+                            id: uuid.v4(),
+                            task: 'Learn webpack'
+                        },
+                        {
+                            id: uuid.v4(),
+                            task: 'Learn react'
+                        }
+                    ]                    
+                }                
             ]
         };
     }
     
-    render() {
+    render() {              
         return (
             <div>
-                <button onClick={this.addNote.bind(this)}>+</button>
-                <NoteList 
-                    notes={this.state.notes}
-                    onSaveNote={this.saveNote.bind(this)} 
-                    onRemoveNote={this.removeNote.bind(this)}
-                />
+                <button onClick={this.addLane.bind(this)}>+</button>
+                {this.renderLanes()}
             </div>
         );
     }
     
-    addNote() {
-        this.setState({
-            notes: [...this.state.notes, {
-                id: uuid.v4(),
-                task: 'New Task'
-            }]
+    renderLanes() {
+        return this.state.lanes.map((lane, index) => {
+            return (
+                <Lane 
+                    key={index}
+                    id={lane.id}
+                    name={lane.name} 
+                    notes={lane.notes}
+                    onSaveNote={this.saveNote.bind(this)} 
+                    onRemoveNote={this.removeNote.bind(this)}
+                />
+            ); 
         });
     }
     
-    saveNote(note) {
+    addLane() {
+        this.setState({
+            lanes: [...this.state.lanes, { name: 'New Lane' }]
+        });
+    }
+    
+    // addNote() {
+    //     this.setState({
+    //         notes: [...this.state.notes, {
+    //             id: uuid.v4(),
+    //             task: 'New Task'
+    //         }]
+    //     });
+    // }
+    
+    saveNote(laneId, note) {
         var taskIsAnEmptyString = !note.task.trim(); 
         
         if (taskIsAnEmptyString) {
             return;
         }
         
-        const notes = this.state.notes.map(currentNote => {
+        var lane = this.state.lanes.find(lane => lane.id === laneId);        
+        
+        lane.notes = lane.notes.map(currentNote => {
             if (currentNote.id === note.id) {
                 currentNote.task = note.task;
             }
@@ -58,7 +83,15 @@ class App extends React.Component {
             return currentNote;
         });
         
-        this.setState(notes);
+        const laneIndex = this.state.lanes.indexOf(lane); 
+        
+        this.setState({
+            lanes: [
+                ...this.state.lanes.slice(0, laneIndex), 
+                lane, 
+                ...this.state.lanes.slice(laneIndex + 1)
+            ]
+        });
     }
     
     removeNote(noteId) {
@@ -66,9 +99,17 @@ class App extends React.Component {
             return;
         }
         
-        const notes = this.state.notes.filter(note => note.id !== noteId);
+        var lane = this.state.lanes.find(lane => _.some(lane.notes, { id: noteId }));
+        var index = this.state.lanes.indexOf(lane);
+        _.remove(lane.notes, { id: noteId });
         
-        this.setState({notes});
+        this.setState({
+            lanes: [
+                ...this.state.lanes.slice(0, index), 
+                lane, 
+                ...this.state.lanes.slice(index + 1)
+            ]
+        });
     }
 }
 
