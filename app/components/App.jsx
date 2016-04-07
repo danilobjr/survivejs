@@ -43,22 +43,21 @@ class App extends React.Component {
     }
     
     saveNote(note) {
-        var taskIsAnEmptyString = note.task.trim(); 
+        var taskIsAnEmptyString = !note.task.trim(); 
         
         if (taskIsAnEmptyString) {
             return;
         }
         
-        var originalNote = _.find(this.state.notes, { id: note.id });
-        originalNote.task = note.task;
-        
-        var index = this.state.notes.indexOf(originalNote);
-        
-        this.setState({
-            notes: [...this.state.notes.slice(0, index), 
-                originalNote, 
-                ...this.state.notes.slice(index + 1)]
+        const notes = this.state.notes.map(currentNote => {
+            if (currentNote.id === note.id) {
+                currentNote.task = note.task;
+            }
+            
+            return currentNote;
         });
+        
+        this.setState(notes);
     }
 }
 
