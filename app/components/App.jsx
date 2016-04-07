@@ -43,6 +43,12 @@ class App extends React.Component {
     }
     
     saveNote(note) {
+        var taskIsAnEmptyString = note.task.trim(); 
+        
+        if (taskIsAnEmptyString) {
+            return;
+        }
+        
         var originalNote = _.find(this.state.notes, { id: note.id });
         originalNote.task = note.task;
         
